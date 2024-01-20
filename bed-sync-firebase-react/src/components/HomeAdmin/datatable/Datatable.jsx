@@ -69,7 +69,7 @@ const Datatable = () => {
       renderCell: (params) => {
         return (
           <div className="cellAction">
-            <Link to="/AdminUsers/test" style={{ textDecoration: "none" }}>
+            <Link to={`/AdminUsers/${params.row.id}`} style={{ textDecoration: "none" }}>
               <div className="viewButton">View</div>
             </Link>
             <div
@@ -83,6 +83,7 @@ const Datatable = () => {
       },
     },
   ];
+  
   return (
     <div className="datatable">
       <div className="datatableTitle">

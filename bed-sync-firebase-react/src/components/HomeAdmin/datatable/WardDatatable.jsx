@@ -1,8 +1,8 @@
 import "./datatable.scss";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { userColumns, userRows } from "../../datatableResource";
+import { wardColumns } from "../../datatableResource";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 import {
   collection,
   getDocs,
@@ -12,31 +12,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 
-
-const Datatable = () => {
+const WardDatatable = () => {
   const [data, setData] = useState([]);
-  const navigate = useNavigate(); // Import useNavigate
-
 
   useEffect(() => {
-    // const fetchData = async () => {
-    //   let list = [];
-    //   try {
-    //     const querySnapshot = await getDocs(collection(db, "users"));
-    //     querySnapshot.forEach((doc) => {
-    //       list.push({ id: doc.id, ...doc.data() });
-    //     });
-    //     setData(list);
-    //     console.log(list);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // fetchData();
-
-    // LISTEN (REALTIME)
     const unsub = onSnapshot(
-      collection(db, "users"),
+      collection(db, "wards"),
       (snapShot) => {
         let list = [];
         snapShot.docs.forEach((doc) => {
@@ -56,54 +37,48 @@ const Datatable = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, "users", id));
+      await deleteDoc(doc(db, "wards", id));
       setData(data.filter((item) => item.id !== id));
     } catch (err) {
       console.log(err);
     }
   };
- 
+
   const actionColumn = [
     {
       field: "action",
       headerName: "Action",
       width: 200,
       renderCell: (params) => {
-        const handleView = () => {
-          // Navigate to the Single route with the user's data
-          navigate(`/AdminUsers/${params.row.id}`);
-        };
         return (
           <div className="cellAction">
-          <div
-            className="viewButton"
-            onClick={() => handleView(params.row.id)}
-          >
-            View
+    <Link to={`/AdminWards/${params.row.id}`} style={{ textDecoration: "none" }}>
+              <div className="viewButton">View</div>
+            </Link>
+            <div
+              className="deleteButton"
+              onClick={() => handleDelete(params.row.id)}
+            >
+              Delete
+            </div>
           </div>
-          <div
-            className="deleteButton"
-            onClick={() => handleDelete(params.row.id)}
-          >
-            Delete
-          </div>
-        </div>
         );
       },
     },
   ];
+
   return (
     <div className="datatable">
       <div className="datatableTitle">
-        Add New User
-        <Link to="/AdminUsers/new" className="link">
+        Add New Ward
+        <Link to="/AdminWards/new" className="link">
           Add New
         </Link>
       </div>
       <DataGrid
         className="datagrid"
         rows={data}
-        columns={userColumns.concat(actionColumn)}
+        columns={wardColumns.concat(actionColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
@@ -112,4 +87,4 @@ const Datatable = () => {
   );
 };
 
-export default Datatable;
+export default WardDatatable;

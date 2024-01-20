@@ -36,16 +36,18 @@ const Sidebar = () => {
             <span>Users</span>
             </li>
           </Link>
-          <Link to="/ward" style={{ textDecoration: "none" }}>
+          <Link to="/AdminWards" style={{ textDecoration: "none" }}>
             <li>
               <ApartmentIcon className="icon" />
               <span>Ward</span>
             </li>
           </Link>
+          <Link to="/AdminBeds" style={{ textDecoration: "none" }}>
           <li>
             <LocalHotelIcon className="icon" />
             <span>Bed </span>
           </li>
+          </Link>
           <li>
             <Diversity3OutlinedIcon className="icon" />
             <span>Patient </span>

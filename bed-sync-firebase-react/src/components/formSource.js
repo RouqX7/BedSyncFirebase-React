@@ -18,12 +18,6 @@ export const userInputs = [
     placeholder: "john_doe@gmail.com",
   },
   {
-    id: "alternateEmail",
-    label: "Alternate Email",
-    type: "email",
-    placeholder: "john_doe@gmail.com",
-  },
-  {
     id: "password",
     label: "Password",
     type: "password",
@@ -70,6 +64,13 @@ export const wardInputs = [
     placeholder: "General Ward",
   },
   {
+    id: "wardType",
+    label: "Ward Type",
+    type: "select",
+    options: ["General Ward", "ICU", "Maternity Ward", "Pediatric Ward", /* Add more ward types as needed */],
+    placeholder: "Select Ward Type",
+  },
+  {
     id: "description",
     label: "Ward Description",
     type: "text",
@@ -81,7 +82,32 @@ export const wardInputs = [
     type: "text",
     placeholder: "Department",
   },
+  {
+    id: "capacity",
+    label: "Capacity",
+    type: "number",
+    placeholder: "Enter capacity",
+  },
+  {
+    id: "totalBeds",
+    label: "Total Beds",
+    type: "number",
+    placeholder: "Enter total beds",
+  },
+  {
+    id: "currentOccupancy",
+    label: "Current Occupancy",
+    type: "number",
+    placeholder: "Enter current occupancy",
+  },
+  {
+    id: "availableBeds",
+    label: "Available Beds",
+    type: "number",
+    placeholder: "Enter available beds",
+  },
 ];
+
 
 // Bed Inputs
 export const bedInputs = [

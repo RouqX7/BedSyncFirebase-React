@@ -10,16 +10,21 @@ import {
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { auth, db, storage } from "../../firebase";
+import { auth,db,storage } from "../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { setCurrentUser } from "../../state/userSlice";
+import { setCurrentWard } from "../../state/wardSlice";
 
 const New = ({ inputs, title }) => {
+  const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.user.currentUser);
   const [file, setFile] = useState("");
-  const [data, setData] = useState({});
+  const [data,setData] = useState({})
   const [per, setPerc] = useState(null);
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   useEffect(() => {
     const uploadFile = () => {
@@ -64,23 +69,41 @@ const New = ({ inputs, title }) => {
 
   const handleInput = (e) => {
     const id = e.target.id;
-    const value = e.target.value;
+    const value = e.target.value
 
-    setData({ ...data, [id]: value });
+    setData({...data, [id]: value})
+    dispatch(setCurrentUser({ ...data, [id]: value }));
   };
 
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      const res = await createUserWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      await setDoc(doc(db, "users", res.user.uid), {
-        ...data,
+      // Step 1: Register user using Firebase Authentication
+      const authResult = await createUserWithEmailAndPassword(auth, data.email, data.password);
+
+      // Step 2: Save additional user data to Firestore
+      const user = {
+        uid: authResult.user.uid,
+        email: authResult.user.email,
+        firstName: data.firstName,
+        lastName: data.lastname,
+        roles: data.roles,
+        phoneNumber: data.phoneNumber,
+        securityQuestion: data.securityQuestion,
+        securityAnswer: data.securityAnswer,
+        permissions: data.permissions,
+        img: data.img || "", // Assuming img is the property for profile picture URL
+      };
+
+      await setDoc(doc(db, "users", user.uid), {
+        ...user,
         timeStamp: serverTimestamp(),
       });
+
+      // Update Redux state with the current user
+      dispatch(setCurrentUser(user));
+
+      // Navigate to a different page or perform other actions as needed
       navigate(-1);
     } catch (err) {
       console.log(err);
@@ -123,12 +146,11 @@ const New = ({ inputs, title }) => {
               {inputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    onChange={handleInput}
-                  />
+                  <input 
+                  id={input.id}
+                  type={input.type} 
+                  placeholder={input.placeholder} 
+                  onChange={handleInput} />
                 </div>
               ))}
               <button disabled={per !== null && per < 100} type="submit">

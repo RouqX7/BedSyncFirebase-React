@@ -37,3 +37,93 @@ export const userColumns = [
     },
   },
 ];
+
+
+export const wardColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "name",
+    headerName: "Ward Name",
+    width: 230,
+  },
+  {
+    field: "wardType",
+    headerName: "Ward Type",
+    width: 230,
+  },
+  {
+    field: "capacity",
+    headerName: "Capacity",
+    width: 100,
+  },
+  {
+    field: "description",
+    headerName: "Description",
+    width: 160,
+  },
+  {
+    field: "currentOccupancy",
+    headerName: "Current Occupancy",
+    width: 160,
+  },
+  {
+    field: "responsibleDepartment",
+    headerName: "Responsible Department",
+    width: 200,
+  },
+  {
+    field: "totalBeds",
+    headerName: "Total Beds",
+    width: 120,
+  },
+  {
+    field: "availableBeds",
+    headerName: "Available Beds",
+    width: 140,
+  },
+  {
+    field: "timestamp",
+    headerName: "Timestamp",
+    width: 200,
+  },
+];
+
+export const bedColumns = [
+  { field: "id", headerName: "ID", width: 70 },
+  {
+    field: "wardId",
+    headerName: "Ward ID",
+    width: 150,
+  },
+  {
+    field: "isAvailable",
+    headerName: "Available",
+    width: 120,
+  },
+  {
+    field: "bedNumber",
+    headerName: "Bed Number",
+    width: 150,
+  },
+  {
+    field: "bedType",
+    headerName: "Bed Type",
+    width: 120,
+  },
+  {
+    field: "state",
+    headerName: "Bed State",
+    width: 150,
+  },
+  {
+    field: "patientId",
+    headerName: "Patient ID",
+    width: 150,
+  },
+  {
+    field: "timestamp",
+    headerName: "Timestamp",
+    width: 200,
+  },
+];
+
