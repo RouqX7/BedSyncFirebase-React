@@ -8,16 +8,19 @@ import New from "./components/HomeAdmin/new/New";
 import Single from "./components/HomeAdmin/single/Single";
 import AdminHome from "./components/HomeAdmin/DashBoard/AdminHome";
 
-import { wardInputs, userInputs,bedInputs } from "./components/formSource";
+import { wardInputs, userInputs,bedInputs, patientInputs } from "./components/formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./components/context/darkModeContext";
-import { bedColumns, userColumns, wardColumns } from "./components/datatableResource";
+import { PatientColumns, bedColumns, userColumns, wardColumns } from "./components/datatableResource";
 import WardNew from "./components/HomeAdmin/new/WardNew";
 import SingleWard from "./components/HomeAdmin/single/SingleWard";
 import SingleBed from "./components/HomeAdmin/single/SingleBed";
 import ListBeds from "./components/HomeAdmin/list/ListBeds";
 import BedNew from "./components/HomeAdmin/new/BedNew";
+import ListPatients from "./components/HomeAdmin/list/ListPatients";
+import PatientNew from "./components/HomeAdmin/new/PatientNew";
+import SinglePatient from "./components/HomeAdmin/single/SinglePatient";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -43,6 +46,16 @@ function App() {
   <Route path=":bedId/*" element={<SingleBed bedColumns={bedColumns} />} />
   <Route index element={<ListBeds />} />
 </Route>
+
+<Route path="/AdminPatients"> 
+            <Route index element={<ListPatients />} />
+            <Route path="new" element={<PatientNew inputs={patientInputs} title="Add New Ward" />} />
+            <Route path=":id" element={<SinglePatient patientColumns={PatientColumns} />} />
+  </Route>
+
+
+
+
 </Routes>
       </BrowserRouter>
     </div>

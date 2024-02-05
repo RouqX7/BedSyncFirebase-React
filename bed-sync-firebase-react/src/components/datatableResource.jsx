@@ -125,5 +125,45 @@ export const bedColumns = [
     headerName: "Timestamp",
     width: 200,
   },
+  
 ];
+
+export const PatientColumns = [
+  {
+    field: "firstName",
+    headerName: "First Name",
+    width: 150,
+  },
+  {
+    field: "lastName",
+    headerName: "Last Name",
+    width: 150,
+  },
+  {
+    field: "dateOfBirth",
+    headerName: "Date of Birth",
+    width: 150,
+  },
+  {
+    field: "contactInformation",
+    headerName: "Contact Information",
+    width: 200,
+  },
+  {
+    field: "medicalHistory",
+    headerName: "Medical History",
+    width: 200,
+  },
+  {
+    field: "admissionHistory",
+    headerName: "Admission History",
+    width: 200,
+  },
+  {
+    field: "timestamp",
+    headerName: "Timestamp",
+    width: 200,
+  },
+];
+
 

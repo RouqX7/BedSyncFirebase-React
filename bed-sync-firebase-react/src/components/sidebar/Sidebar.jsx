@@ -25,10 +25,12 @@ const Sidebar = () => {
       <div className="center">
         <ul>
           <p className="title">MAIN</p>
+          <Link to="/" style={{ textDecoration: "none" }}>
           <li>
             <DashboardIcon className="icon" />
             <span>Dashboard</span>
           </li>
+          </Link>
           <p className="title">LISTS</p>
           <Link to="/AdminUsers" style={{ textDecoration: "none" }}>
             <li>
@@ -48,10 +50,13 @@ const Sidebar = () => {
             <span>Bed </span>
           </li>
           </Link>
+          <Link to="/AdminPatients" style={{ textDecoration: "none" }}>
           <li>
             <Diversity3OutlinedIcon className="icon" />
             <span>Patient </span>
           </li>
+          </Link>
+
           <li>
             <GroupAddOutlinedIcon className="icon" />
             <span>Staff </span>

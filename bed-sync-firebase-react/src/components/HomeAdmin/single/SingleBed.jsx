@@ -1,24 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Sidebar from '../../sidebar/Sidebar';
-import Navbar from '../../navbar/navbar';
-import Chart from '../../chart/Chart';
-import List from '../../table/Table';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Sidebar from "../../sidebar/Sidebar";
+import Navbar from "../../navbar/navbar";
+import Chart from "../../chart/Chart";
+import List from "../../table/Table";
 import "./single.scss";
-import { bedColumns } from '../../datatableResource';
-import { useDispatch } from 'react-redux';
-import { setCurrentBed } from '../../state/bedSlice';
-
+import { bedColumns } from "../../datatableResource";
+import { useDispatch } from "react-redux";
+import { setCurrentBed } from "../../state/bedSlice";
 
 const SingleBed = () => {
-  const {bedId } = useParams();
+  const { bedId } = useParams();
   const dispatch = useDispatch();
   const [bedData, setBedData] = useState(null);
 
   useEffect(() => {
-    console.log('bedId:', bedId);
+    console.log("bedId:", bedId);
     const fetchBedData = async () => {
-      console.log('Component mounted');
+      console.log("Component mounted");
       try {
         const response = await fetch(`http://localhost:8081/api/beds/${bedId}`);
         if (!response.ok) {
@@ -36,11 +35,9 @@ const SingleBed = () => {
         console.error("Error fetching bed data:", error);
       }
     };
-  
+
     fetchBedData(); // Moved inside the outer useEffect
-  
-  }, [dispatch,bedId]);
-  
+  }, [dispatch, bedId]);
 
   if (!bedData) {
     return <div>Loading...</div>; // Moved inside the component
@@ -63,7 +60,9 @@ const SingleBed = () => {
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Is Available:</span>
-                  <span className="itemValue">{bedData.isAvailable ? 'Yes' : 'No'}</span>
+                  <span className="itemValue">
+                    {bedData.isAvailable ? "Yes" : "No"}
+                  </span>
                 </div>
               </div>
             </div>
@@ -80,6 +79,5 @@ const SingleBed = () => {
     </div>
   );
 };
-  
 
 export default SingleBed;
