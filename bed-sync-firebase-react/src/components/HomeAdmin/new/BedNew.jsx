@@ -73,33 +73,57 @@ const BedNew = ({ inputs, title }) => {
 
   const createBed = async (e) => {
     e.preventDefault();
-    console.log('Ward ID:', wardId); // Add this line
-  
+    console.log('Ward ID:', wardId);
     try {
-      const response = await fetch(`http://localhost:8081/api/beds/wards/${wardId}/create-bed`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          img: data.img || '', // Ensure img is present, even if not uploaded
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Error creating bed: ${response.statusText}`);
-      }
-  
-      const responseData = await response.json();
-      console.log('Bed created successfully:', responseData);
-      dispatch(setCurrentBed(responseData)); // Assuming responseData is the created bed
-      navigate(-1);
+        const response = await fetch(`http://localhost:8081/api/beds/wards/${wardId}/create-bed`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ...data,
+                img: data.img || '',
+            }),
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error creating bed: ${response.statusText}`);
+        }
+
+        const responseData = await response.json();
+        console.log('Bed created successfully:', responseData);
+        dispatch(setCurrentBed(responseData));
+
+        // Update availableBeds count in the corresponding Ward document
+        console.log('Updating availableBeds count...');
+        const updateResponse = await fetch(`http://localhost:8081/api/wards/${wardId}/update-available-beds`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // You might need to adjust this based on the response structure
+                availableBeds: responseData.available ? 1 : 0,
+            }),
+        });
+
+        // Log the update response
+        console.log('Update response:', updateResponse);
+
+        if (!updateResponse.ok) {
+            throw new Error(`Error updating availableBeds count: ${updateResponse.statusText}`);
+        }
+
+        console.log('Available beds count updated successfully');
+        navigate(-1);
     } catch (error) {
-      console.error('Error creating bed:', error.message);
-      // Handle the error as needed
+        console.error('Error creating bed:', error.message);
+        // Handle the error as needed
     }
-  };
+};
+
+  
+  
   
 
   return (

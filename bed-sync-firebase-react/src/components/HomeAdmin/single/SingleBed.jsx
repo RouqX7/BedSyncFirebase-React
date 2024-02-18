@@ -53,15 +53,16 @@ const SingleBed = () => {
             <h1 className="title">Bed Information</h1>
             <div className="item">
               <div className="details">
-                <h1 className="itemTitle">{bedData.bedNumber}</h1>
+              <h3 className="ItemKey">Bed Number</h3>
+                <h4 className="ItemValue">{bedData.bedNumber}</h4>
                 <div className="detailItem">
                   <span className="itemKey">Bed Type:</span>
                   <span className="itemValue">{bedData.bedType}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Is Available:</span>
+                  <span className="itemKey">Available:</span>
                   <span className="itemValue">
-                    {bedData.isAvailable ? "Yes" : "No"}
+                    {bedData.available ? "Yes" : "No"}
                   </span>
                 </div>
               </div>

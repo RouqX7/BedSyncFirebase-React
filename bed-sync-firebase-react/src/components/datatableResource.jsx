@@ -96,7 +96,7 @@ export const bedColumns = [
     width: 150,
   },
   {
-    field: "isAvailable",
+    field: "available",
     headerName: "Available",
     width: 120,
   },

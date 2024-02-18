@@ -66,12 +66,26 @@ const BedDatatableWithWards = () => {
 
   const handleDelete = async (id) => {
     try {
-      await deleteDoc(doc(db, "beds", id));
+      // Delete the bed from the backend
+      const response = await fetch(`http://localhost:8081/api/beds/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to delete bed with ID ${id}`);
+      }
+  
+      // Update the local state after successful deletion
       setData(data.filter((item) => item.id !== id));
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.error('Error deleting bed:', error.message);
+      // Handle the error as needed
     }
   };
+  
 
   const handleAddBed = () => {
     console.log("Selected Ward ID:", selectedWardId);

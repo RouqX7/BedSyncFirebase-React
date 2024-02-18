@@ -123,11 +123,7 @@ export const bedInputs = [
     type: "text",
     placeholder: "Single",
   },
-  {
-    id: "isAvailable",
-    label: "Availability",
-    type: "checkbox",
-  },
+
 ];
 // Generic Patient Inputs (Modify as needed)
 export const patientInputs = [
