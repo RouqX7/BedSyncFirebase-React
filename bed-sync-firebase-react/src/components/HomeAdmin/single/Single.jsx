@@ -1,4 +1,3 @@
-// Single.jsx
 import React, { useEffect, useState } from 'react';
 import "./single.scss";
 import { useParams } from 'react-router-dom';
@@ -13,28 +12,28 @@ const Single = () => {
   const { uid } = useParams();
   const [userData, setUserData] = useState(null);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await fetch(`http://localhost:8081/api/users/${uid}`);
-        if (!response.ok) {
-          if (response.status === 404) {
-            console.error("User not found");
-          } else {
-            console.error("Error fetching user data:", response.statusText);
-          }
-          return;
+  const fetchUserData = async () => {
+    try {
+      const response = await fetch(`http://localhost:8081/api/users/${uid}`);
+      if (!response.ok) {
+        if (response.status === 404) {
+          console.error("User not found");
+        } else {
+          console.error("Error fetching user data:", response.statusText);
         }
-        const data = await response.json();
-        setUserData(data);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
+        return;
       }
-    };
-
-    useEffect(() => {
-      fetchUserData();
-    }, [uid]);
+      const data = await response.json();
+      setUserData(data);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchUserData();
+  }, [uid]);
+  
 
   if (!userData) {
     return <div>Loading...</div>;
@@ -51,7 +50,7 @@ const Single = () => {
             <div className="item">
               <img src={userData.img} alt="" className="itemImg" />
               <div className="details">
-                <h1 className="itemTitle">{`${userData.firstName} ${userData.lastname}`}</h1>
+                <h1 className="itemTitle">{`${userData.firstName} ${userData.lastName}`}</h1>
                 {userInputs.map((input) => (
                   <div className="detailItem" key={input.id}>
                     <span className="itemKey">{input.label}:</span>
@@ -72,7 +71,6 @@ const Single = () => {
       </div>
     </div>
   );
-  })
 };
 
 export default Single;
